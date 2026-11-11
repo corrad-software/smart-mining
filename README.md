@@ -9,7 +9,7 @@ F001 weekly reports, attendance, permits, maps).
 | [`api/`](api) | Backend: Laravel 13 + Filament 5 + PostgreSQL 17/PostGIS + Sanctum + spatie/permission ([api/README.md](api/README.md)) |
 | [`frontend/`](frontend) | Frontend: Vue 3 + Vite + Bootstrap 5 + Leaflet SPA |
 | [`database/`](database) | Full PostgreSQL dump (`smart_mining.dump`, ~285k rows) |
-| [`compare/`](compare) | Old vs new UI comparison screenshots and the narrated demo video (`demo-walkthrough.mp4`) |
+| [`compare/`](compare) | Old vs new UI comparison screenshots and the narrated demo video (`demo-walkthrough- kssb.mp4`) |
 
 ## Quick start
 
