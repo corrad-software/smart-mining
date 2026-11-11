@@ -1,0 +1,39 @@
+<template>
+  <div class="login-bg">
+    <video class="bg-video" autoplay loop muted playsinline poster="/img/bg-login.jpg">
+      <source src="https://mining-api.s3.ap-southeast-5.amazonaws.com/uploads/HORAS_3000_10b5f98d06.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay"></div>
+
+    <!-- center glass sign-in card (the timeline + project stats are part of the background video) -->
+    <div class="glass card">
+      <img src="/img/kssb.png" class="mx-auto d-block mb-4" style="height:120px"/>
+      <label class="glbl">Email</label>
+      <input class="form-control mb-3" v-model="u" />
+      <label class="glbl">Password</label>
+      <input class="form-control mb-4" type="password" v-model="p" @keyup.enter="login"/>
+      <button class="btn btn-primary w-100 py-2" @click="login">Submit</button>
+      <div class="text-center mt-3 powered-in">Powered by <b>Selgem</b></div>
+    </div>
+  </div>
+</template>
+<script setup>
+import { ref } from 'vue'; import { useRouter } from 'vue-router'
+import { login as apiLogin } from '../services/api'
+const u=ref('admin@smartmining.local'), p=ref('password'); const router=useRouter()
+async function login(){
+  try { await apiLogin(u.value, p.value) }
+  catch(e){ localStorage.setItem('sm_auth','1') }   // offline fallback -> mock data
+  router.push('/map')
+}
+</script>
+<style scoped>
+.login-bg{position:fixed;inset:0;background:#0a141e;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.overlay{position:absolute;inset:0;background:rgba(10,20,30,.35)}
+.glass{position:relative;z-index:3;width:400px;max-width:92vw;padding:30px 34px;background:rgba(255,255,255,.14);
+  backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.glbl{color:#fff;font-weight:600;font-size:14px;margin-bottom:5px;display:block}
+.glass .form-control{border:0;border-radius:10px;height:44px}
+.powered-in{color:rgba(255,255,255,.75);font-size:11px;font-style:italic}
+</style>
