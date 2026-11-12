@@ -33,6 +33,18 @@ npm run dev                                       # http://localhost:5178
 
 Default login (local seed data): `admin@smartmining.local` / `password`.
 
+## Docker Compose
+
+`web` (Vue), `api` (Laravel + Filament), and `db` (PostgreSQL 17 + PostGIS). Copy `.env.example` to `.env` before a public deploy.
+
+```bash
+docker compose up --build
+```
+
+- Web: http://localhost:8080
+- API: http://localhost:8008 — admin panel at http://localhost:8008/admin
+- The first database start restores `database/smart_mining.dump`. Later starts keep the `pgdata` volume and do not import again.
+
 ## Notes
 - The raw JSON export of the legacy system (~1.3 GB) is not committed; the database dump contains the imported data.
 - Scripts that talk to the legacy system (`api/database/sync_latest.py`, `frontend/capture.mjs`, etc.) read

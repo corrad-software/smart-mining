@@ -1,0 +1,17 @@
+.git
+**/.env
+**/.env.*
+!**/.env.example
+**/node_modules
+**/vendor
+compare
+**/*.mp4
+**/*.wav
+**/*.gif
+frontend/*.mjs
+frontend/*.py
+api/tests
+api/storage/logs
+api/storage/framework/cache/data
+**/.phpunit.cache
+**/.phpunit.result.cache
