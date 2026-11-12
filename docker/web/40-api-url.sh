@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-api="${VITE_API_URL:-http://localhost:8008/api}"
+api="${VITE_API_URL:-http://localhost:41808/api}"
 
 case "$api" in
   *localhost*|*127.0.0.1*)

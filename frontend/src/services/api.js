@@ -1,7 +1,7 @@
 // Talks to the Laravel API when a token is present; falls back to the bundled
 // mock JSON (public/data/*.json) so the prototype still runs offline.
 const runtimeApi = typeof window !== 'undefined' ? (window.__SMART_MINING_API__ || '') : ''
-const API = String(runtimeApi).trim() || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8008/api'
+const API = String(runtimeApi).trim() || import.meta.env.VITE_API_URL || 'http://127.0.0.1:41808/api'
 const cache = {}
 
 export function token() { return localStorage.getItem('sm_token') }

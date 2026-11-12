@@ -6,7 +6,7 @@ return [
         'trim',
         explode(',', (string) env(
             'CORS_ALLOWED_ORIGINS',
-            'http://localhost:5178,http://127.0.0.1:5178,http://localhost:8080,http://127.0.0.1:8080'
+            'http://localhost:5178,http://127.0.0.1:5178,http://localhost:41880,http://127.0.0.1:41880'
         ))
     ))),
     'allowed_origins_patterns' => [],

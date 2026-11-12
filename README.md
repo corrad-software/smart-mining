@@ -41,9 +41,10 @@ Default login (local seed data): `admin@smartmining.local` / `password`.
 docker compose up --build
 ```
 
-- Web: http://localhost:8080
-- API: http://localhost:8008 — admin panel at http://localhost:8008/admin
+- Web: http://localhost:41880
+- API: http://localhost:41808 — admin panel at http://localhost:41808/admin
 - The first database start restores `database/smart_mining.dump`. Later starts keep the `pgdata` volume and do not import again.
+- On the server, publish TCP `41880` (web) and TCP `41808` (api). Do not publish the database.
 
 ## Notes
 - The raw JSON export of the legacy system (~1.3 GB) is not committed; the database dump contains the imported data.

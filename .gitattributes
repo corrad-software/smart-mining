@@ -1,3 +1,4 @@
 *.sh text eol=lf
 docker/** text eol=lf
 docker-compose.yml text eol=lf
+docker-compose.override.yml text eol=lf
