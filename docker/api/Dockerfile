@@ -1,4 +1,5 @@
-FROM dunglas/frankenphp:1-php8.3
+# Symfony 8 in composer.lock requires PHP >= 8.4.1.
+FROM dunglas/frankenphp:1-php8.4
 
 WORKDIR /app
 
