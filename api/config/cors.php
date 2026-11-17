@@ -2,6 +2,8 @@
 return [
     'paths' => ['api/*', 'login', 'logout', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
+    // Comma-separated. Example: CORS_ALLOWED_ORIGINS=https://smart-mining.sena.my
+    // Not needed when the SPA and API are served from the same origin.
     'allowed_origins' => array_values(array_filter(array_map(
         'trim',
         explode(',', (string) env(

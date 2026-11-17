@@ -1,7 +1,7 @@
-# Smart Mining — Backend (Laravel 13 + Filament + PostgreSQL/PostGIS)
+# Selgem — Backend (Laravel 13 + Filament + PostgreSQL/PostGIS)
 
-Reverse-engineered rebuild of the Selgem/KSSB Smart Monitoring System.
-Companion to the SRS/ERD docs in `~/smart-mining-srs` and the Vue frontend in `~/smart-mining-proto`.
+Reverse-engineered rebuild of the KSSB Smart Monitoring System.
+Companion to the SRS/ERD docs in `~/selgem-srs` and the Vue frontend in `~/selgem-frontend`.
 
 ## Stack
 - **Laravel 13** (API + admin host)
@@ -13,18 +13,18 @@ Companion to the SRS/ERD docs in `~/smart-mining-srs` and the Vue frontend in `~
 
 ## Run
 ```bash
-# DB already created: smart_mining (PostGIS enabled)
-cd ~/smart-mining-api
+# DB already created: selgem (PostGIS enabled)
+cd ~/selgem-api
 php artisan serve --port=8008
 ```
-- **Admin panel:** http://127.0.0.1:8008/admin  — `admin@smartmining.local` / `password`
+- **Admin panel:** http://127.0.0.1:8008/admin  — `admin@kssb.local` / `password`
 - **API base:** http://127.0.0.1:8008/api
 
 ### Frontend (separate terminal)
 ```bash
-cd ~/smart-mining-proto && npm run dev   # http://localhost:5178
+cd ~/selgem-frontend && npm run dev   # http://localhost:5178
 ```
-Login with `admin@smartmining.local` / `password` — the SPA authenticates against the API
+Login with `admin@kssb.local` / `password` — the SPA authenticates against the API
 and loads live data (falls back to bundled mock JSON if the API is offline).
 
 ## Reset / reseed
@@ -62,7 +62,16 @@ original system, which enforced roles only on the client.
 docker run -p 9000:9000 -p 9001:9001 \
   -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin \
   minio/minio server /data --console-address ":9001"
-# then create the bucket "smart-mining" in the console (http://127.0.0.1:9001)
+# then create the bucket "selgem" in the console (http://127.0.0.1:9001)
 ```
 `config/filesystems.php` disk `s3` is pre-configured from `.env` (default disk stays `local`
 so nothing breaks when MinIO is not running). Use `Storage::disk('s3')` for large assets.
+
+## Decision intelligence, knowledge base & Employee Self-Service (Nov 2026)
+- **Insights APIs** (rule-based "what / why / what to do"): `/api/insights` (dashboard), `/api/monitoring/insights`, `/api/attendance/insights`, `/api/map`.
+- **Knowledge base + Ask**: `/api/kb` (CRUD, `/api/kb/refresh` snapshots), `/api/ask`. Set `ANTHROPIC_API_KEY` in `.env` for Claude answers; without it answers come from KB search.
+- **Employee Self-Service** (`/ess` in the SPA, `/api/ess/*`): clock-in/out with selfie + GPS geofence, leave (Employment Act 1955 minimums), overtime, time-off, claims,
+  multi-level approvals, notifications, memos, HR policies, reports. Staff log in with their staff code (e.g. `KS0294`), demo password `password`.
+- **HR monitoring** (`/api/hr/*`): attendance map, heatmaps, in/out trend, alerts (outside fence / same spot / low accuracy), geofence admin, manpower vs production.
+- Seed ESS data: `php -d memory_limit=1024M artisan db:seed --class=EssSeeder` · backfill attendance sites: `python3 -I database/import_attendance_sites.py ~/selgem-srs/data/attendances_full.json`.
+- App timezone: `APP_TIMEZONE=Asia/Kuala_Lumpur`. Selfies are stored on the local public disk (`php artisan storage:link`).
